@@ -1,0 +1,55 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# WXT build output
+.output
+.wxt
+
+# WXT stats
+stats.html
+stats-*.json
+
+# Extension zip packages
+*.zip
+*.crx
+*.xpi
+
+# WXT web-ext override (local only)
+web-ext.config.ts
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Claude Code local settings
+.claude/settings.local.json

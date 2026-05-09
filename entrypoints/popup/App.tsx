@@ -26,8 +26,26 @@ function App() {
   // Optimistic update: reflect in state immediately, persist in background
   const handleChange = async (patch: Partial<VisionEaseSettings>) => {
     if (!settings) return;
-    setSettings((prev) => (prev ? { ...prev, ...patch } : prev));
+    const updatedSettings = { ...settings, ...patch };
+    setSettings(updatedSettings);
     await saveSettings(patch);
+
+    // Broadcast settings update to all tabs
+    try {
+      const tabs = await browser.tabs.query({});
+      tabs.forEach((tab) => {
+        if (tab.id) {
+          browser.tabs.sendMessage(tab.id, {
+            type: 'SETTINGS_UPDATE',
+            settings: updatedSettings,
+          }).catch(() => {
+            // Tab may not have content script loaded, ignore error
+          });
+        }
+      });
+    } catch (error) {
+      console.error('Failed to broadcast settings:', error);
+    }
   };
 
   const handleWizardComplete = async () => {
